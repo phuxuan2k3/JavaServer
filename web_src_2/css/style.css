@@ -1,20 +1,19 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body
-{
+
+body {
     display: flex;
     background-image: url("background.jpg");
-    background-size:  100% 100%;
+    background-size: 100% 100%;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
 }
-.box
-{
+
+.box {
     position: relative;
     width: 380px;
     height: 420px;
@@ -22,82 +21,94 @@ body
     border-radius: 8px;
     overflow: hidden;
 }
-.box::before
-{
+
+.box::before {
     content: "";
     position: absolute;
     width: 380px;
     height: 420px;
-    background: linear-gradient(0deg, transparent,#f80303, #f80303 );
-    top:-50%;
-    left:-50%;
+    background: linear-gradient(0deg, transparent, #f80303, #f80303);
+    top: -50%;
+    left: -50%;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
 }
-.box::after
-{
+
+.box::after {
     content: "";
     position: absolute;
     width: 380px;
     height: 420px;
-    background: linear-gradient(0deg, transparent,#f80303, #f80303 );
-    top:-50%;
-    left:-50%;
+    background: linear-gradient(0deg, transparent, #f80303, #f80303);
+    top: -50%;
+    left: -50%;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
-    animation-delay:-3s;
+    animation-delay: -3s;
 }
-@keyframes animate
- {
-    0%
-    {
+
+@keyframes animate {
+    0% {
         transform: rotate(0deg);
     }
-    100%
-    {
+
+    100% {
         transform: rotate(360deg);
     }
 }
-.box form
-{
+
+.box form {
     position: absolute;
-    background-color: #28292d;
+    background-color: #111111;
     z-index: 10;
     inset: 2px;
-    border-radius: 8px;  
-    padding: 50px 40px;
+    border-radius: 8px;
+    padding: 20px 40px;
     display: flex;
-    flex-direction:column; 
+    flex-direction: column;
 }
-.box h2
-{
+
+.box img {
+    width: 80px;
+    height: 80px;
+    margin-left: 100px;
+    animation: spinner 2s infinite linear;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.box h2 {
     color: #f80303;
     font-weight: 500;
     text-align: center;
     letter-spacing: 0.1em;
 }
-.inputBox
-{
+
+.inputBox {
     position: relative;
     width: 300px;
-    margin-top: 35px;
+    margin-top: 10px;
 }
-.inputBox input
-{
+
+.inputBox input {
     position: relative;
     width: 100%;
     padding: 20px 10px 10px;
     background: transparent;
     border: none;
     outline: none;
-    color:rgb(33, 3, 3);
+    color: rgb(33, 3, 3);
     font-size: 1.4em;
     letter-spacing: 0.05em;
     top: 10px;
- z-index: 10;
+    z-index: 10;
 }
-.inputBox span
-{
+
+.inputBox span {
     position: absolute;
     left: 0;
     padding: 20px 10px 10px;
@@ -105,57 +116,54 @@ body
     color: #8f8f8f;
     pointer-events: none;
     letter-spacing: 0.05em;
-} 
+}
 
-.inputBox input:valid ~ span,
-.inputBox input:focus ~ span
-{
-    color:#f80303;
+.inputBox input:valid~span,
+.inputBox input:focus~span {
+    color: #f80303;
     transform: translateX(-10px);
     transform: translateY(-20px);
     font-size: 0.75em;
-}  
-.inputBox i
-{
+}
+
+.inputBox i {
     position: absolute;
-    left:0;
+    left: 0;
     bottom: 0;
     width: 100%;
     height: 2px;
-    background:#e94242;
-    pointer-events: none;  
+    background: #e94242;
+    pointer-events: none;
     border-radius: 8px;
     z-index: 9;
 
 }
-.inputBox input:valid ~ i,
-.inputBox input:focus ~ i
-{
+
+.inputBox input:valid~i,
+.inputBox input:focus~i {
     height: 40px;
 }
-.links
-{
+
+.links {
     display: flex;
     justify-content: space-between;
 }
-.links a
-{
+
+.links a {
     margin: 10px 0;
     font-size: 0.75em;
-    color:#8f8f8f;
+    color: #8f8f8f;
     text-decoration: none;
 }
-.links a:hover
-.links a:nth-child(2)
-{
-    color:#e94242;
+
+.links a:hover .links a:nth-child(2) {
+    color: #e94242;
 }
 
-input[type="submit"]
-{
+input[type="submit"] {
     border: none;
     outline: none;
-    background:#e94242;
+    background: #e94242;
     padding: 11px 25px;
     width: 200px;
     margin-top: 10px;
@@ -164,7 +172,7 @@ input[type="submit"]
     align-self: center;
     cursor: pointer;
 }
-input[type="submit"]:active
-{
+
+input[type="submit"]:active {
     opacity: 0.5;
 }

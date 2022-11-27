@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -35,6 +37,7 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
+import java.awt.Dimension;
 
 public class GUI {
 	public class JImageComponent extends JComponent {
@@ -60,6 +63,8 @@ public class GUI {
 	private JButton serverBtn;
 	private Thread server;
 	private Server serverConnection;
+	private JLabel svUchihaLbl;
+	private JLabel svGocLbl;
 
 	/**
 	 * Launch the application.
@@ -107,14 +112,30 @@ public class GUI {
 	 */
 	private void initialize() {
 		frmWebServer = new JFrame();
+		frmWebServer.setMinimumSize(new Dimension(700, 400));
+		frmWebServer.setPreferredSize(new Dimension(700, 400));
 		frmWebServer.setTitle("Web Server");
-		frmWebServer.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("D:\\programin\\Git\\ServerSocket\\JavaServer\\gui_src\\Logo2.png"));
-		frmWebServer.setBounds(100, 100, 700, 400);
+		frmWebServer.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\gui_src\\Logo2.png"));
 		frmWebServer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWebServer.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmWebServer.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent componentEvent) {
+				serverBtn.setLocation(0, 0);
+				svUchihaLbl.setLocation(0, 0);
+				svGocLbl.setLocation(0, 0);
+			}
+		});
 
-		JLayeredPane layeredPane = new JLayeredPane();
+		JLayeredPane layeredPane = new JLayeredPane() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+			}
+		};
+		layeredPane.setMinimumSize(new Dimension(700, 400));
+		layeredPane.setName("main");
+		layeredPane.setBounds(0, 0, 700, 40);
 		frmWebServer.getContentPane().add(layeredPane, BorderLayout.CENTER);
 		layeredPane.setLayout(null);
 
@@ -122,7 +143,6 @@ public class GUI {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-
 				this.setBounds(0, 0, this.getParent().getWidth(), this.getParent().getHeight());
 			}
 		};
@@ -171,5 +191,63 @@ public class GUI {
 		customBorder = new BorderDiagGradient_GUI(3, new Color(50, 8, 8), new Color(200, 12, 12));
 		serverBtn.setBorder(customBorder);
 		serverBtn.setFocusPainted(false);
+
+		svGocLbl = new JLabel("Server Gốc") {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				int w = this.getParent().getWidth() / 12;
+				int h = this.getParent().getHeight() / 35;
+				int x = w;
+				int y = h * 30;
+				this.setBounds(x, y, w * 2, h * 5);
+			}
+		};
+		svGocLbl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		svGocLbl.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (serverBtn.getText().equals("CLOSE SERVER")) {
+					serverBtn.setText("OPEN SERVER");
+					serverConnection.stopServer();
+				}
+				Server.FILE_PATH = ".\\web_src\\";
+			}
+		});
+		svGocLbl.setPreferredSize(new Dimension(100, 30));
+		svGocLbl.setForeground(new Color(255, 250, 250));
+		svGocLbl.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		svGocLbl.setBounds(158, 255, 100, 30);
+		layeredPane.setLayer(svGocLbl, 3);
+		layeredPane.add(svGocLbl);
+
+		svUchihaLbl = new JLabel("Server Uchiha") {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				int w = this.getParent().getWidth() / 12;
+				int h = this.getParent().getHeight() / 35;
+				int x = w * 3;
+				int y = h * 30;
+				this.setBounds(x, y, w * 2, h * 5);
+			}
+		};
+		svUchihaLbl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		svUchihaLbl.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (serverBtn.getText().equals("CLOSE SERVER")) {
+					serverBtn.setText("OPEN SERVER");
+					serverConnection.stopServer();
+				}
+				Server.FILE_PATH = ".\\web_src_2\\";
+			}
+		});
+		svUchihaLbl.setPreferredSize(new Dimension(100, 30));
+		svUchihaLbl.setForeground(new Color(255, 250, 250));
+		svUchihaLbl.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		svUchihaLbl.setBounds(51, 259, 100, 30);
+		layeredPane.setLayer(svUchihaLbl, 3);
+		layeredPane.add(svUchihaLbl);
 	}
 }

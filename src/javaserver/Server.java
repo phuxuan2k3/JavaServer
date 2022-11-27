@@ -11,7 +11,7 @@ public class Server implements Runnable {
 	private static final int PORT = 8080;
 	private static final int LINGER_TIME = 5000;
 	private static final int SO_TIMEOUT = 10000;
-	public static final String FILE_PATH = ".\\web_src_2\\";
+	public static String FILE_PATH = ".\\web_src_2\\";
 
 	protected volatile boolean exit = false;
 	private ServerSocket ss;

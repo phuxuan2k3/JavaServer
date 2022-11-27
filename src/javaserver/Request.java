@@ -53,13 +53,13 @@ public class Request {
 		try {
 			BufferedReader client_input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String request_line = null;
-
+			
 			if ((request_line = client_input.readLine()) == null || request_line.length() == 0) {
 				this.is_exist = false;
 				return;
 			}
+			
 			String[] request_line_elements = request_line.split(" ");
-
 			this.headers = new ArrayList<>();
 			String header = "";
 			while ((header = client_input.readLine()) != null && header.length() != 0) {
@@ -72,11 +72,12 @@ public class Request {
 					payload += String.valueOf((char) client_input.read());
 				}
 			}
-
+			
 			set_value(request_line_elements[0], request_line_elements[1], request_line_elements[2], payload);
 			if (request_line_elements[1].equals("/") == true) {
 				this.file_name = "\\index.html";
 			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			this.is_exist = false;

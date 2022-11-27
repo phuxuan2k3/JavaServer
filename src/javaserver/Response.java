@@ -40,7 +40,7 @@ public class Response {
 			this.file_read = read_file();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			this.status = Http_error.HTTP500Interal_Server_Error;
+			this.status = Http_error.HTTP500Internal_Server_Error;
 			set_response_line();
 			set_content_type();
 			try {
@@ -66,7 +66,7 @@ public class Response {
 			this.response_line = this.http_version + " " + this.status + " Unauthorized";
 			this.file_name = "unauthorized.html";
 			break;
-		case Http_error.HTTP500Interal_Server_Error:
+		case Http_error.HTTP500Internal_Server_Error:
 			this.response_line = this.http_version + " " + this.status + " Internal Server Error";
 			this.file_name = "internalServerError.html";
 			break;

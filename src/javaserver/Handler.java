@@ -6,10 +6,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class Handler extends Server implements Runnable {
+public class Handler extends Server {
 	private Socket socket;
 	private String username;
 	private String password;
+	private volatile boolean exit = false;
 
 	public Handler(Socket socket) {
 		// TODO Auto-generated constructor stub
@@ -47,25 +48,27 @@ public class Handler extends Server implements Runnable {
 		return false;
 	}
 
+	public void stopClient() {
+		System.out.println("stopClient");
+		this.exit = true;
+		try {
+			socket.close();
+		} catch (IOException e) {
+
+		}
+		super.socList.remove(this);
+	}
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		while (true) {
 
+		while (exit == false) {
 			Request request = new Request(this.socket);
-
-			request.read_http_request();
+			request.read_http_request(); // Blocks the thread
 
 			if (request.is_there_request() == false) {
-				try {
-					socket.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				break;
 			}
-
 			String file_name = request.get_file_name();
 
 			Response response = null;
@@ -85,8 +88,10 @@ public class Handler extends Server implements Runnable {
 							request.get_http_version());
 				}
 			}
-		
+
 			response.send_the_response();
 		}
+
+		this.stopClient();
 	}
 }

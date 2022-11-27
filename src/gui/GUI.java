@@ -221,7 +221,7 @@ public class GUI {
 		layeredPane.setLayer(svGocLbl, 3);
 		layeredPane.add(svGocLbl);
 
-		svUchihaLbl = new JLabel("Server Uchiha") {
+		svUchihaLbl = new JLabel("Server UCHIHA") {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -244,8 +244,8 @@ public class GUI {
 			}
 		});
 		svUchihaLbl.setPreferredSize(new Dimension(100, 30));
-		svUchihaLbl.setForeground(new Color(255, 250, 250));
-		svUchihaLbl.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		svUchihaLbl.setForeground(new Color(255, 0, 0));
+		svUchihaLbl.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 16));
 		svUchihaLbl.setBounds(51, 259, 100, 30);
 		layeredPane.setLayer(svUchihaLbl, 3);
 		layeredPane.add(svUchihaLbl);

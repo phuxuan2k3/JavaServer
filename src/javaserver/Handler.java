@@ -10,11 +10,12 @@ public class Handler extends Server {
 	private Socket socket;
 	private String username;
 	private String password;
-	private volatile boolean exit = false;
+	private Server main;
 
-	public Handler(Socket socket) {
+	public Handler(Socket socket, Server m) {
 		// TODO Auto-generated constructor stub
 		this.socket = socket;
+		this.main = m;
 	}
 
 	public boolean is_file_exist(String file_name) {
@@ -48,21 +49,10 @@ public class Handler extends Server {
 		return false;
 	}
 
-	public void stopClient() {
-		System.out.println("stopClient");
-		this.exit = true;
-		try {
-			socket.close();
-		} catch (IOException e) {
-
-		}
-		super.socList.remove(this);
-	}
-
 	@Override
 	public void run() {
 
-		while (exit == false) {
+		while (true) {
 			Request request = new Request(this.socket);
 			request.read_http_request(); // Blocks the thread
 
@@ -92,6 +82,14 @@ public class Handler extends Server {
 			response.send_the_response();
 		}
 
-		this.stopClient();
+		try {
+			if (socket.isClosed() == false) {
+				socket.close();
+				System.out.println("stopClient");
+			}
+		} catch (IOException e) {
+
+		}
+		main.socList.remove(this.socket);
 	}
 }

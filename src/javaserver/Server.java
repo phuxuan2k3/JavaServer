@@ -10,7 +10,6 @@ public class Server implements Runnable {
 
 	private static final int PORT = 8080;
 	private static final int LINGER_TIME = 5000;
-//	private static final int SO_TIMEOUT = 1000;
 	public static String FILE_PATH = ".\\web_src_2\\";
 
 	protected volatile boolean exit = false;
@@ -24,14 +23,9 @@ public class Server implements Runnable {
 			ss = new ServerSocket(PORT);
 
 			while (exit == false) {
-				System.out.println("Waiting...");
 				Socket socket = ss.accept();
-				System.out.println("Client accepted");
-
+				
 				socket.setSoLinger(true, LINGER_TIME);
-				// socket.close() will block for LINGER_TIME if there's still data to be sent
-//				socket.setSoTimeout(SO_TIMEOUT);
-				// socket.read() will block for SO_TIMEOUT if there isn't a byte to read
 
 				Handler h = new Handler(socket, this);
 				Thread soc_thread = new Thread(h);
@@ -53,7 +47,6 @@ public class Server implements Runnable {
 	}
 
 	public void stopServer() {
-		System.out.println("stopServer");
 		try {
 			while (socList.isEmpty() == false) {
 				Socket soc_tem = socList.get(0);

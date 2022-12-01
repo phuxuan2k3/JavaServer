@@ -24,7 +24,7 @@ public class Server implements Runnable {
 
 			while (exit == false) {
 				Socket socket = ss.accept();
-				
+
 				socket.setSoLinger(true, LINGER_TIME);
 
 				Handler h = new Handler(socket, this);
@@ -34,7 +34,6 @@ public class Server implements Runnable {
 				soc_thread.start();
 			}
 		} catch (IOException ioe) {
-
 		}
 	}
 
@@ -53,9 +52,7 @@ public class Server implements Runnable {
 				try {
 					if (soc_tem.isClosed() == false) {
 						soc_tem.close();
-						System.out.println("stopClient - from server");
 					}
-					System.out.println("still");
 				} catch (Exception e) {
 
 				}
